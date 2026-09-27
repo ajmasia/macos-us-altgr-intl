@@ -31,14 +31,13 @@ Running `scripts/install.sh --system` SHALL install the bundle into `/Library/Ke
 ### Requirement: Installation guidance
 After installing, the installer SHALL:
 - refresh cached input source icons where possible;
-- tell the user to log out and back in, then add "US AltGr Intl No Dead Keys" from System Settings > Keyboard > Input Sources;
-- open the Keyboard settings pane.
+- tell the user to log out and back in, then add "US AltGr Intl No Dead Keys" from System Settings > Keyboard > Input Sources.
 
-It SHALL NOT enable, disable or reorder input sources itself.
+It SHALL NOT enable, disable or reorder input sources itself. It SHALL NOT open System Settings either: the layout only becomes available after the next login, so the settings pane would be of no use at that point.
 
 #### Scenario: Post-install message
 - **WHEN** installation succeeds
-- **THEN** the next steps are printed and the Keyboard settings pane is opened, and the list of enabled input sources is unchanged
+- **THEN** the next steps are printed, no application is opened, and the list of enabled input sources is unchanged
 
 ### Requirement: Uninstallation detects the install location
 Running `scripts/uninstall.sh` SHALL remove the bundle from `~/Library/Keyboard Layouts/` and from `/Library/Keyboard Layouts/`, whichever contain it. It SHALL request administrator privileges only when a system-wide copy exists.

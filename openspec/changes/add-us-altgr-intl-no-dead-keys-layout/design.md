@@ -111,7 +111,7 @@ Icon canvases are square and macOS scales them to the native badge height. A squ
   2. Check `uname` = Darwin and warn if `sw_vers -productVersion` < 26.
   3. Copy the bundle to a temporary name in the target directory, then swap it into place. This way a failed copy never leaves a half-installed bundle.
   4. `touch` the bundle so the cached icon is dropped, then `killall TextInputMenuAgent` (ignoring errors).
-  5. Print the next steps and `open "x-apple.systempreferences:com.apple.Keyboard-Settings.extension"`.
+  5. Print the next steps. System Settings is not opened: a new layout only appears in Input Sources after the next login, so the pane would be of no use right after installing.
   
   `--system` targets `/Library/Keyboard Layouts` and prefixes the file operations with `sudo`.
 - `uninstall.sh` checks both directories and removes whatever copies it finds. It uses sudo only for the `/Library` copy.

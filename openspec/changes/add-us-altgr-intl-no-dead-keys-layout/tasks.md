@@ -61,7 +61,7 @@
   - repo root resolved from the script path;
   - `--system` option, usage and non-zero exit on unknown options;
   - copy to a temporary name and swap into place;
-  - cache refresh, English next-steps message, and opening the Keyboard settings pane.
+  - cache refresh and English next-steps message (no settings pane is opened; see design D8).
 
   Verify: run from another directory, the bundle lands in `~/Library/Keyboard Layouts/`; a second run leaves exactly one bundle; `--bogus` exits non-zero without changes; `shellcheck scripts/install.sh` is clean.
 - [x] 6.2 Verify `scripts/install.sh --system` with the user: the sudo prompt appears and the bundle lands in `/Library/Keyboard Layouts/`.
