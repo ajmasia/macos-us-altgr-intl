@@ -70,7 +70,7 @@
 
 ## 7. README layout reference (keyboard-layout)
 
-- [ ] 7.1 Add the layout table to the README: Option and Shift+Option per key, with the 17 former dead-key positions marked, the combining-mark caveat, the Caps Lock behaviour, and the differences from Debian `altgr-intl` and from Apple's "U.S. International - PC". Verify: every entry matches `check-layout.py`'s resolved output (spot-check 10 keys).
+- [x] 7.1 Add the layout table to the README: Option and Shift+Option per key, with the 17 former dead-key positions marked, the combining-mark caveat, the Caps Lock behaviour, and the differences from Debian `altgr-intl` and from Apple's "U.S. International - PC". Verify: every entry matches `check-layout.py`'s resolved output (spot-check 10 keys).
 - [ ] 7.2 Add provenance and prior art to the README: derived from xkeyboard-config (MIT/X11), with carjorvaz, philippwallrafen and xv0x7c0 listed as references only. Verify: the section exists and the links resolve.
 
 ## 8. End-to-end verification on the development Mac

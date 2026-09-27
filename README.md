@@ -33,7 +33,84 @@ The script removes the layout from `~/Library/Keyboard Layouts/` and `/Library/K
 
 ## Layout
 
-_To be written._
+Without modifiers and with Shift, every key types the same ASCII character as the standard US layout. Option plays the role of AltGr:
+
+| Key | Option | Shift+Option |
+|---|---|---|
+| `` ` `` `~` | `` ` `` † | `~` † |
+| `1` `!` | `¹` | `¡` |
+| `2` `@` | `²` | `˝` † |
+| `3` `#` | `³` | `¯` † |
+| `4` `$` | `¤` | `£` |
+| `5` `%` | `€` | `¸` † |
+| `6` `^` | `ˆ` † | `¼` |
+| `7` `&` | U+031B † | `½` |
+| `8` `*` | `˛` † | `¾` |
+| `9` `(` | `‘` | `˘` † |
+| `0` `)` | `’` | `˚` † |
+| `-` `_` | `¥` | U+0323 † |
+| `=` `+` | `×` | `÷` |
+| `Q` | `ä` | `Ä` |
+| `W` | `å` | `Å` |
+| `E` | `é` | `É` |
+| `R` | `ë` | `Ë` |
+| `T` | `þ` | `Þ` |
+| `Y` | `ü` | `Ü` |
+| `U` | `ú` | `Ú` |
+| `I` | `í` | `Í` |
+| `O` | `ó` | `Ó` |
+| `P` | `ö` | `Ö` |
+| `[` `{` | `«` | `“` |
+| `]` `}` | `»` | `”` |
+| `A` | `á` | `Á` |
+| `S` | `ß` | `§` |
+| `D` | `ð` | `Ð` |
+| `F` | `f` | `F` |
+| `G` | `g` | `G` |
+| `H` | `h` | `H` |
+| `J` | `ï` | `Ï` |
+| `K` | `œ` | `Œ` |
+| `L` | `ø` | `Ø` |
+| `;` `:` | `¶` | `°` |
+| `'` `"` | `´` † | `¨` † |
+| `\` `\|` | `¬` | `¦` |
+| `Z` | `æ` | `Æ` |
+| `X` | `œ` | `Œ` |
+| `C` | `©` | `¢` |
+| `V` | `®` | `™` |
+| `B` | `·` | U+0338 † |
+| `N` | `ñ` | `Ñ` |
+| `M` | `µ` | `±` |
+| `,` `<` | `ç` | `Ç` |
+| `.` `>` | `˙` † | `ˇ` † |
+| `/` `?` | `¿` | U+0309 † |
+| ISO key (`\` `\|`) | `\` | `\|` |
+
+† A dead key in `xkb us(altgr-intl)`. Here it types the diacritic on its own, straight away, and does not change the next key.
+
+Four of those positions have no standalone (spacing) form in Unicode, so they type a combining mark that attaches to the character **before** it:
+
+- U+031B combining horn (Option+7);
+- U+0323 combining dot below (Shift+Option+-);
+- U+0309 combining hook above (Shift+Option+/);
+- U+0338 combining long solidus overlay (Shift+Option+B).
+
+For example, typing `o` and then Option+7 gives `ơ`.
+
+Option+Space types a regular space, never a non-breaking space.
+
+### Caps Lock
+
+Caps Lock works as on Linux: it changes the case of letters only, and Shift reverses it. For example, Caps Lock with `a`, Option+`a` and Shift+Option+`a` gives `A`, `Á` and `á`. Digits, punctuation and symbols such as `1`, `'` and Option+`c` (`©`) are not affected.
+
+### Shortcuts
+
+Command and Control shortcuts behave as with Apple's "U.S." layout. Command+Option shortcuts such as Command+Option+I match their base letter.
+
+### Differences from other layouts
+
+- **Debian `altgr-intl`:** the same characters in the same positions, but none of the 17 dead keys (marked †). Where Debian waits for the next key, this layout types the accent immediately.
+- **Apple's "U.S. International - PC":** there, `'`, `"`, `` ` ``, `~` and `^` are dead keys on the base layer; here they type immediately. That layout mirrors Windows US-International, and xkb notes that `altgr-intl` diverges from the Microsoft layout on the `1`, `6`, `7`, `8`, `R`, `F`, `X`, `V` and `B` keys.
 
 ## Development
 
