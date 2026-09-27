@@ -1,0 +1,8 @@
+Upstream:  https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config
+Commit:    be285e9160013f4a5e69d68ecb55a5312c53f861 (2026-06-16)
+Files:     symbols/us, COPYING (unmodified copies from that commit)
+License:   see COPYING (MIT/X11-style permissive licenses)
+
+Only symbols/us is used, by scripts/xkb.py, as the reference for the
+us(altgr-intl) and us(intl) variants. Do not edit the vendored files; to
+update, replace them from a newer upstream commit and update this file.
