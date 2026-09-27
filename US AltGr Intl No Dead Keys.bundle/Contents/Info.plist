@@ -13,17 +13,17 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>0.1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>0.1.0</string>
 	<key>KLInfo_US AltGr Intl No Dead Keys</key>
 	<dict>
+		<key>TISIconIsTemplate</key>
+		<true/>
 		<key>TISInputSourceID</key>
 		<string>com.ajmasia.keyboardlayout.us-altgr-intl-no-dead-keys</string>
 		<key>TISIntendedLanguage</key>
 		<string>en</string>
-		<key>TISIconIsTemplate</key>
-		<true/>
 	</dict>
 </dict>
 </plist>
