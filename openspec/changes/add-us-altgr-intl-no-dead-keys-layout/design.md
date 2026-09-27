@@ -52,8 +52,11 @@ The keylayout declares one `keyMapSelect` per meaningful combination, so that no
 | 5 | anyShift anyOption | xkb level 4 (with dead-key replacements) |
 | 6 | caps anyOption | level 3, or level 4 where levels 3/4 are a case pair |
 | 7 | anyShift caps anyOption | level 4, or level 3 where levels 3/4 are a case pair |
-| 8 | command (+ optional shift/caps/option) | ASCII base/shift characters for shortcut matching |
+| 8 | command (+ optional caps/option) | ASCII base characters for shortcut matching |
 | 9 | control (+ any) | standard ASCII control characters |
+| 10 | anyShift command (+ optional caps/option) | ASCII shift characters for shortcut matching |
+
+Map 10 mirrors Apple's U.S. layout, where Command+Shift resolves to the shifted character (for example Command+? for Help). It is listed before map 9 in the `modifierMap`, so Control combinations still reach map 9.
 
 `defaultIndex` points to map 0. Which keys count as "alphabetic" follows xkb's automatic key-type rules:
 - `FOUR_LEVEL_ALPHABETIC` when both level pairs are case pairs;
