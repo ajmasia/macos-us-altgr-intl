@@ -8,9 +8,11 @@ macOS 26 Tahoe or later. Tested on macOS 27. Installing needs only the tools tha
 
 ## Installation
 
-From a clone of this repository, run:
+Clone the repository and run the installer:
 
 ```sh
+git clone https://github.com/ajmasia/macos-us-altgr-intl.git
+cd macos-us-altgr-intl
 ./scripts/install.sh
 ```
 
