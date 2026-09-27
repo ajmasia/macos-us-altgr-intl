@@ -45,7 +45,7 @@
 
 ## 5. Bundle metadata and icon (keyboard-layout, menu-bar-icon)
 
-- [ ] 5.1 Write `Info.plist`:
+- [x] 5.1 Write `Info.plist`:
   - `CFBundleIdentifier` `com.ajmasia.keyboardlayout.us-altgr-intl-no-dead-keys`;
   - `KLInfo_US AltGr Intl No Dead Keys` containing `TISInputSourceID`, `TISIntendedLanguage=en`, `TISIconIsTemplate=true`, plus `TISIconLabels {Primary: "US"}` if the spike chose S2.
 
