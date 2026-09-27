@@ -131,24 +131,31 @@ None of this is needed to install or use the layout.
 
 The development tools need Python 3, which comes with the Xcode Command Line Tools (`xcode-select --install`). They use only the Python standard library and do not access the network.
 
+### Scripts
+
+| Script | Purpose |
+|---|---|
+| `scripts/check-layout.py` | Validates the layout bundle. Run it before every commit that touches the bundle. |
+| `scripts/xkb.py` | Module used by the other two scripts: reads `vendor/xkeyboard-config/symbols/us`, resolves `us(altgr-intl)`, maps xkb keys to macOS key codes and holds the table of the 17 dead-key replacements. Not run directly. |
+| `scripts/bootstrap-from-xkb.py` | Generated the initial `.keylayout` from xkb. Kept as a record; not part of the normal workflow. |
+| `scripts/tests/` | Unit tests for `xkb.py` and `check-layout.py`. |
+
 ### Validating the layout
 
-The `.keylayout` is edited by hand. Run the validator before every commit that touches it:
-
 ```sh
-python3 scripts/check-layout.py
+python3 scripts/check-layout.py [BUNDLE]
 ```
 
-It compares the layout with the pinned xkeyboard-config reference in `vendor/xkeyboard-config/` and checks the project rules:
+`BUNDLE` defaults to `US AltGr Intl No Dead Keys.bundle` in the repository root. The script compares the layout with the pinned xkeyboard-config reference and checks the project rules:
 
+- the Base, Shift, Option and Shift+Option layers, and their Caps Lock variants, match xkb `us(altgr-intl)` plus the documented dead-key replacements;
 - no dead keys under any modifier;
-- ASCII-only Base and Shift layers;
-- Caps Lock behaviour;
-- ASCII-only Command and Control maps;
-- consistent bundle naming;
+- ASCII-only Base and Shift layers, and ASCII-only Command and Control maps;
+- no empty `keyMap` (macOS silently rejects the whole layout if one is empty);
+- consistent bundle naming, and no custom `.icns` icon;
 - a valid, consistent Semantic Versioning version in `Info.plist` and `version.plist`.
 
-It prints one line per finding (`key / layer / expected / actual`) and exits with status 1 if there are any.
+It prints one line per finding (`key / layer / expected / actual`) and exits with status 1 if there are any, or prints `OK` and exits with status 0.
 
 Run the unit tests with:
 
@@ -156,9 +163,26 @@ Run the unit tests with:
 python3 -m unittest discover -s scripts/tests
 ```
 
-### Provenance of the `.keylayout`
+### Changing a key
 
-`scripts/bootstrap-from-xkb.py` generated the initial `.keylayout` from `vendor/xkeyboard-config/symbols/us`. It is kept only as a record and is not part of the normal workflow.
+1. Edit `US AltGr Intl No Dead Keys.bundle/Contents/Resources/US AltGr Intl No Dead Keys.keylayout`. Each `<keyMap index="N">` is one modifier combination (see the `<modifierMap>` at the top of the file), and each `<key code="…" output="…"/>` is one key, identified by its macOS key code.
+2. The validator expects exactly xkb `us(altgr-intl)`. The only exceptions it allows are the 17 dead-key replacements in `DEAD_KEY_REPLACEMENTS` (`scripts/xkb.py`). A change to one of those characters goes in that table. Any other deliberate departure from xkb needs a new exception in `scripts/xkb.py`, with a test.
+3. Run `python3 scripts/check-layout.py` and the unit tests.
+4. Run `./scripts/install.sh`, then log out and back in to try it. macOS only reloads layouts at login.
+
+### Regenerating from xkb
+
+`scripts/bootstrap-from-xkb.py` rebuilds the `.keylayout` from `vendor/xkeyboard-config/symbols/us`:
+
+```sh
+python3 scripts/bootstrap-from-xkb.py --id -24458 --output "$TMPDIR/new.keylayout"
+diff "US AltGr Intl No Dead Keys.bundle/Contents/Resources/US AltGr Intl No Dead Keys.keylayout" "$TMPDIR/new.keylayout"
+```
+
+- `--id` sets the keyboard layout id. Keep `-24458`, the id of the shipped layout; without it the script picks a random unused id.
+- `--output` sets where to write. Without it, the script **overwrites** the shipped `.keylayout`, discarding any hand edits, so write elsewhere and compare first.
+
+This is only useful after updating the vendored xkeyboard-config: replace `vendor/xkeyboard-config/symbols/us` and `COPYING` with the files from a newer upstream commit, update `vendor/xkeyboard-config/SOURCE`, and run the validator to see what changed.
 
 ## Planning with OpenSpec
 
