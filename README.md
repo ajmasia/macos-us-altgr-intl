@@ -9,9 +9,19 @@
 
 A macOS keyboard layout that behaves like Debian's "English (intl., with AltGr dead keys)" (`xkb us(altgr-intl)`), but with no dead keys at all. The base and Shift layers are plain US ASCII, so `'`, `"`, `` ` ``, `~` and `^` are typed immediately, which suits programming. Accented letters and symbols sit on Option (acting as AltGr), and each of them is typed with a single keystroke.
 
+- [Requirements](#requirements)
+- [Installation](#installation) · [Upgrading](#upgrading) · [Uninstallation](#uninstallation)
+- [Layout](#layout)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
+- [Planning with OpenSpec](#planning-with-openspec)
+- [Provenance and prior art](#provenance-and-prior-art) · [Versioning](#versioning) · [License](#license)
+
 ## Requirements
 
-macOS 26 Tahoe or later. Tested on macOS 27. Installing needs only the tools that ship with macOS.
+- macOS 26 Tahoe or later. Tested on macOS 27. The installer warns on older versions but still installs.
+- An ANSI or ISO keyboard. JIS keyboards use the same mapping for the keys they share with ANSI; other JIS-only keys, apart from the keypad comma, are not mapped.
+- Installing needs only the tools that ship with macOS, plus `git` to clone the repository.
 
 ## Installation
 
@@ -31,6 +41,20 @@ Then:
 2. Open System Settings > Keyboard > Input Sources > Edit, click "+", choose English and add **US AltGr Intl No Dead Keys**.
 
 The installer does not open System Settings or change your input sources; it only copies the layout.
+
+To switch between input sources, press Control+Space or the 🌐 (Globe) key, or use the input menu in the menu bar.
+
+The `main` branch can contain changes that are not released yet. To install a specific release, check out its tag before running the installer, for example `git checkout v0.2.2`. The [releases page](https://github.com/ajmasia/macos-us-altgr-intl/releases) lists the available versions.
+
+## Upgrading
+
+```sh
+cd macos-us-altgr-intl
+git pull
+./scripts/install.sh      # or ./scripts/install.sh --system
+```
+
+The installer replaces the previous copy completely. Log out and log back in afterwards; restart the Mac if the menu bar or the cursor indicator still shows the old icon. The input source stays enabled, so there is no need to add it again. See [CHANGELOG.md](CHANGELOG.md) for what changed.
 
 ## Uninstallation
 
@@ -108,6 +132,12 @@ For example, typing `o` and then Option+7 gives `ơ`.
 
 Option+Space types a regular space, never a non-breaking space.
 
+### ANSI and ISO keyboards
+
+The layout works the same on ANSI and ISO keyboards. On ISO keyboards, the extra key between left Shift and `Z` (macOS key code 10) types `\` and `|`, as xkb's `<LSGT>` does. The key left of `1` (key code 50) types `` ` `` and `~`.
+
+Depending on the keyboard and on how macOS identifies it, these two physical keys can arrive with each other's key code. This is a long-standing macOS quirk with ISO keyboards. The layout does not try to correct it. If `\` and `` ` `` come out swapped on your keyboard, remap the two keys in its firmware or configuration tool, or with a key remapper.
+
 ### Caps Lock
 
 Caps Lock works as on Linux: it changes the case of letters only, and Shift reverses it. For example, Caps Lock with `a`, Option+`a` and Shift+Option+`a` gives `A`, `Á` and `á`. Digits, punctuation and symbols such as `1`, `'` and Option+`c` (`©`) are not affected.
@@ -125,11 +155,34 @@ The layout uses macOS's generic keyboard icon, in the menu bar, in the input men
 - **Debian `altgr-intl`:** the same characters in the same positions, but none of the 17 dead keys (marked †). Where Debian waits for the next key, this layout types the accent immediately.
 - **Apple's "U.S. International - PC":** there, `'`, `"`, `` ` ``, `~` and `^` are dead keys on the base layer; here they type immediately. That layout mirrors Windows US-International, and xkb notes that `altgr-intl` diverges from the Microsoft layout on the `1`, `6`, `7`, `8`, `R`, `F`, `X`, `V` and `B` keys.
 
+## Troubleshooting
+
+- **The layout is not listed in Input Sources.** macOS only registers new layouts at login. Log out and back in; if it is still missing, restart the Mac. Check that `~/Library/Keyboard Layouts/US AltGr Intl No Dead Keys.bundle` exists.
+- **The menu bar or the cursor indicator shows an old icon, or the indicator stops appearing.** macOS caches input source icons. Restart the Mac.
+- **Option+letter does nothing, or acts as a shortcut, in Terminal or iTerm2.** The terminal is using Option as a Meta key. In Terminal, turn off *Settings > Profiles > Keyboard > Use Option as Meta key*. In iTerm2, set *Settings > Profiles > Keys > Left/Right Option key* to *Normal*.
+- **Accents combine with the next letter.** Another layout is active. Check the input menu: with this layout, no key waits for the next one.
+- **Caps Lock switches the input source instead of locking caps.** Turn off *System Settings > Keyboard > Input Sources > Edit > Use the Caps Lock key to switch to and from ABC*.
+
 ## Development
 
 None of this is needed to install or use the layout.
 
-The development tools need Python 3, which comes with the Xcode Command Line Tools (`xcode-select --install`). They use only the Python standard library and do not access the network.
+The development tools need Python 3, which comes with the Xcode Command Line Tools (`xcode-select --install`). They use only the Python standard library and do not access the network. The shell scripts are checked with [ShellCheck](https://www.shellcheck.net) (`brew install shellcheck`, then `shellcheck scripts/*.sh`).
+
+### Repository layout
+
+```
+US AltGr Intl No Dead Keys.bundle/   the layout, installed as is
+  Contents/Info.plist                bundle id, input source id, language, version
+  Contents/version.plist             version
+  Contents/Resources/*.keylayout     the key mapping (edited by hand)
+  Contents/Resources/en.lproj/       display name
+scripts/                             install, uninstall and development tools
+vendor/xkeyboard-config/             pinned copy of the xkb reference, license and source commit
+openspec/specs/                      current specifications
+openspec/changes/                    active and archived changes
+CHANGELOG.md                         release notes
+```
 
 ### Scripts
 
@@ -240,7 +293,8 @@ openspec archive <name>             # merge the change into openspec/specs and a
    ```
 5. Publish a GitHub release for the tag, using that version's `CHANGELOG.md` section as the notes:
    ```sh
-   gh release create vX.Y.Z --verify-tag --title "vX.Y.Z" --notes-file notes.md
+   awk '/^## \[X.Y.Z\]/{f=1; next} /^## \[|^\[Unreleased\]:/{f=0} f' CHANGELOG.md > "$TMPDIR/notes.md"
+   gh release create vX.Y.Z --verify-tag --title "vX.Y.Z" --notes-file "$TMPDIR/notes.md"
    ```
 
 ## Provenance and prior art
