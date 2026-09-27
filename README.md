@@ -1,5 +1,15 @@
 # US AltGr Intl No Dead Keys
 
+[![Version](https://img.shields.io/github/v/tag/ajmasia/macos-us-altgr-intl?label=version&sort=semver)](CHANGELOG.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Platform: macOS 26+](https://img.shields.io/badge/macOS-26%2B-black?logo=apple)](#requirements)
+[![Based on xkeyboard-config](https://img.shields.io/badge/based%20on-xkeyboard--config-orange)](https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config)
+[![Python 3](https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white)](#development)
+[![Swift](https://img.shields.io/badge/Swift-F05138?logo=swift&logoColor=white)](#regenerating-the-menu-bar-icon)
+[![Bash](https://img.shields.io/badge/Bash-4EAA25?logo=gnubash&logoColor=white)](scripts/install.sh)
+[![Planned with OpenSpec](https://img.shields.io/badge/planned%20with-OpenSpec-6f42c1)](#planning-with-openspec)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org)
+
 A macOS keyboard layout that behaves like Debian's "English (intl., with AltGr dead keys)" (`xkb us(altgr-intl)`), but with no dead keys at all. The base and Shift layers are plain US ASCII, so `'`, `"`, `` ` ``, `~` and `^` are typed immediately, which suits programming. Accented letters and symbols sit on Option (acting as AltGr), and each of them is typed with a single keystroke.
 
 ## Requirements
@@ -160,6 +170,61 @@ The badge is a template image: a rounded rectangle with "US" knocked out. macOS 
 ### Provenance of the `.keylayout`
 
 `scripts/bootstrap-from-xkb.py` generated the initial `.keylayout` from `vendor/xkeyboard-config/symbols/us`. It is kept only as a record and is not part of the normal workflow.
+
+## Planning with OpenSpec
+
+Changes to this project are planned with [OpenSpec](https://github.com/Fission-AI/OpenSpec) before they are implemented. A plan is a set of Markdown files:
+
+- `openspec/specs/<capability>/spec.md`: how the project currently behaves, as requirements with scenarios. There is one capability per area (`keyboard-layout`, `menu-bar-icon`, `installation`, `layout-validation`, `versioning`).
+- `openspec/changes/<change>/`: a proposed change, made of:
+  - `proposal.md`: why and what;
+  - `design.md`: how, and the decisions taken;
+  - `specs/`: the requirements it adds, modifies or removes;
+  - `tasks.md`: the implementation checklist.
+- `openspec/changes/archive/`: completed changes. Archiving a change merges its spec changes into `openspec/specs/`.
+
+Install the CLI with `npm install -g @fission-ai/openspec`. The commands you will use most:
+
+```sh
+openspec list                       # active changes
+openspec list --specs               # capabilities
+openspec show <change-or-spec>      # read a change or a spec
+openspec new change <name>          # start a change (kebab-case, e.g. fix-caps-option-comma)
+openspec status --change <name>     # which planning files are done
+openspec validate <name> --strict   # check a change before implementing and before archiving
+openspec archive <name>             # merge the change into openspec/specs and archive it
+```
+
+### How to proceed
+
+**New feature or behaviour change** (a new key, a different character, a new installer option):
+
+1. Run `openspec new change add-<something>` and write `proposal.md`, the spec changes under `specs/`, `design.md` if there are decisions to record, and `tasks.md`.
+2. Run `openspec validate add-<something> --strict`.
+3. Implement the tasks in order and tick each one off in `tasks.md` as it is done. Use one Conventional Commit per logical step.
+4. Run `python3 scripts/check-layout.py` and the unit tests, and add an entry under `Unreleased` in `CHANGELOG.md`.
+5. Once it is merged, run `openspec archive add-<something>`.
+
+**Bug fix:**
+
+- If the layout or scripts do not do what a spec says, the spec is right and the code is wrong. Fix the code with a `fix:` commit, add a check or test that would have caught it, and add a `Fixed` entry to `CHANGELOG.md`. No OpenSpec change is needed.
+- If the spec itself is wrong or incomplete, open a change (for example `fix-<something>`) that modifies the requirement, then implement it as for a new feature.
+
+**Maintenance with no change in behaviour** (typos, refactors, updating the README): commit directly with the matching Conventional Commit type (`docs:`, `refactor:`, `chore:`). No OpenSpec change is needed.
+
+### Releasing
+
+1. Choose the next version:
+   - **patch** for fixes;
+   - **minor** for new behaviour;
+   - **major** for changes that break existing typing habits (while the version is `0.x`, use minor).
+2. Set `CFBundleShortVersionString` and `CFBundleVersion` in `Info.plist` and `version.plist`. `check-layout.py` fails if the four values differ.
+3. Move the `Unreleased` entries in `CHANGELOG.md` to a new dated section, and update the comparison links at the bottom.
+4. Commit, create a signed tag and push both:
+   ```sh
+   git tag -s vX.Y.Z -m "vX.Y.Z"
+   git push --follow-tags
+   ```
 
 ## Provenance and prior art
 
