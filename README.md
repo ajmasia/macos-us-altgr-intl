@@ -23,7 +23,7 @@ Then:
 1. Log out and log back in. macOS only registers new keyboard layouts at login.
 2. Open System Settings > Keyboard > Input Sources > Edit, click "+", choose English and add **US AltGr Intl No Dead Keys**.
 
-The installer opens the Keyboard settings pane for you. It never enables, disables or reorders input sources itself.
+The installer does not open System Settings or change your input sources; it only copies the layout.
 
 ## Uninstallation
 

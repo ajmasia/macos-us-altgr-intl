@@ -92,8 +92,4 @@ Next steps:
   1. Log out and log back in. macOS only registers new layouts at login.
   2. Open System Settings > Keyboard > Input Sources > Edit, click "+",
      choose English and add "$NAME".
-
 EOF
-
-open "x-apple.systempreferences:com.apple.Keyboard-Settings.extension" 2>/dev/null ||
-  echo "Open System Settings > Keyboard to continue."
