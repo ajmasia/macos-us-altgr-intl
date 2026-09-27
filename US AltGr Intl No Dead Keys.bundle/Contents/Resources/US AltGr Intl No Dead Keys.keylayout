@@ -1196,16 +1196,38 @@
         </keyMap>
     </keyMapSet>
     <keyMapSet id="JIS">
-        <keyMap index="0" baseMapSet="ANSI" baseIndex="0"/>
-        <keyMap index="1" baseMapSet="ANSI" baseIndex="1"/>
-        <keyMap index="2" baseMapSet="ANSI" baseIndex="2"/>
-        <keyMap index="3" baseMapSet="ANSI" baseIndex="3"/>
-        <keyMap index="4" baseMapSet="ANSI" baseIndex="4"/>
-        <keyMap index="5" baseMapSet="ANSI" baseIndex="5"/>
-        <keyMap index="6" baseMapSet="ANSI" baseIndex="6"/>
-        <keyMap index="7" baseMapSet="ANSI" baseIndex="7"/>
-        <keyMap index="8" baseMapSet="ANSI" baseIndex="8"/>
-        <keyMap index="9" baseMapSet="ANSI" baseIndex="9"/>
-        <keyMap index="10" baseMapSet="ANSI" baseIndex="10"/>
+        <keyMap index="0" baseMapSet="ANSI" baseIndex="0">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="1" baseMapSet="ANSI" baseIndex="1">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="2" baseMapSet="ANSI" baseIndex="2">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="3" baseMapSet="ANSI" baseIndex="3">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="4" baseMapSet="ANSI" baseIndex="4">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="5" baseMapSet="ANSI" baseIndex="5">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="6" baseMapSet="ANSI" baseIndex="6">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="7" baseMapSet="ANSI" baseIndex="7">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="8" baseMapSet="ANSI" baseIndex="8">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="9" baseMapSet="ANSI" baseIndex="9">
+            <key code="95" output=","/>
+        </keyMap>
+        <keyMap index="10" baseMapSet="ANSI" baseIndex="10">
+            <key code="95" output=","/>
+        </keyMap>
     </keyMapSet>
 </keyboard>

@@ -67,6 +67,8 @@ for code in (122, 120, 99, 118, 96, 97, 98, 100, 101, 109, 103, 111,
              105, 107, 113, 106, 64, 79, 80, 90):  # F1-F20
     SPECIAL_KEYS[code] = FUNCTION_KEY
 
+JIS_KEYPAD_COMMA = 95
+
 # Control+key characters that differ from the key's base character.
 CONTROL_CHARS = {"[": "\x1b", "\\": "\x1c", "]": "\x1d"}
 
@@ -150,9 +152,12 @@ def render(layout_id):
                          % (code, encode(keys[code][index])))
         lines.append("        </keyMap>")
     lines += ["    </keyMapSet>", '    <keyMapSet id="JIS">']
+    # macOS rejects the whole layout if a keyMap is empty, so each JIS map
+    # defines the JIS keypad comma and inherits everything else from ANSI.
     for index in range(MAP_COUNT):
-        lines.append('        <keyMap index="%d" baseMapSet="ANSI" baseIndex="%d"/>'
-                     % (index, index))
+        lines += ['        <keyMap index="%d" baseMapSet="ANSI" baseIndex="%d">' % (index, index),
+                  '            <key code="%d" output=","/>' % JIS_KEYPAD_COMMA,
+                  "        </keyMap>"]
     lines += ["    </keyMapSet>", "</keyboard>", ""]
     return "\n".join(lines)
 
