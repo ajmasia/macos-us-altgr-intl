@@ -214,6 +214,10 @@ openspec archive <name>             # merge the change into openspec/specs and a
    git tag -s vX.Y.Z -m "vX.Y.Z"
    git push --follow-tags
    ```
+5. Publish a GitHub release for the tag, using that version's `CHANGELOG.md` section as the notes:
+   ```sh
+   gh release create vX.Y.Z --verify-tag --title "vX.Y.Z" --notes-file notes.md
+   ```
 
 ## Provenance and prior art
 
