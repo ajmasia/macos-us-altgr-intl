@@ -123,6 +123,12 @@ Icon canvases are square and macOS scales them to the native badge height. A squ
 - `vendor/xkeyboard-config/` holds `symbols/us`, xkeyboard-config's `COPYING`, and a `SOURCE` file with the upstream URL and commit hash.
 - The README credits xkeyboard-config and lists the reference projects as prior art without deriving from them.
 
+### D10. Versioning
+- Releases follow Semantic Versioning 2.0.0, starting at 0.1.0. The version stays below 1.0.0 while the layout may still change in ways users would notice.
+- The version is written in `CFBundleShortVersionString` and `CFBundleVersion` of both `Info.plist` and `version.plist`. Using the same `MAJOR.MINOR.PATCH` string for both keys avoids a separate build counter.
+- `check-layout.py` fails if these four values differ or are not a valid `MAJOR.MINOR.PATCH` version.
+- Each release gets a signed annotated tag `vMAJOR.MINOR.PATCH` and a dated section in `CHANGELOG.md` (Keep a Changelog format).
+
 ## Risks / Trade-offs
 
 - [`TISIconLabels` may be ignored for keylayout bundles] → The spike runs first. Confirmed by the spike; the template `.icns` with geometry F2 is used.

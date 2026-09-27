@@ -79,3 +79,11 @@
 - [x] 8.2 Check shortcuts in Safari, Terminal and an editor: Cmd+C/V/Z, Cmd+Shift+Z, Cmd+/, Cmd+Opt+I, Ctrl+C. Verify: they behave as with Apple's "U.S." layout.
 - [x] 8.3 Check the badge next to "Spanish - ISO" in the menu bar and input menu, in light and dark mode. Verify: the menu-bar-icon spec scenarios hold for the chosen variant.
 - [x] 8.4 Run `openspec validate add-us-altgr-intl-no-dead-keys-layout --strict` and confirm that `git log` is atomic, uses Conventional Commits, and has no AI attribution. Verify: validation passes and the log meets the conventions.
+
+## 9. Versioning (versioning)
+
+- [ ] 9.1 Set `CFBundleShortVersionString` and `CFBundleVersion` to `0.1.0` in `Info.plist` and `version.plist`. Verify: `plutil -p` shows `0.1.0` in all four places.
+- [ ] 9.2 Add the version-consistency check to `scripts/check-layout.py` (design D10). Verify: a unit test with `version.plist` at `1.0` reports the mismatch, and the shipped bundle passes.
+- [ ] 9.3 Add `CHANGELOG.md` (Keep a Changelog) with an `Unreleased` section and a dated `0.1.0` entry, and a "Versioning" note in the README. Verify: the file renders and the README links to it.
+- [ ] 9.4 Add to the README badges for version, license, platform and tooling, and a short section explaining that the project is planned with OpenSpec and how to use it (where the specs and changes live, and the basic `openspec` commands). Verify: the badges render on GitHub and the version badge shows 0.1.0.
+- [ ] 9.5 Create the signed annotated tag `v0.1.0` on the release commit. Verify: `git tag -v v0.1.0` reports a good signature and the tagged bundle version is `0.1.0`.

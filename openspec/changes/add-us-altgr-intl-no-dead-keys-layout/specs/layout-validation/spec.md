@@ -51,3 +51,10 @@ The validation SHALL check that the following are consistent: the bundle directo
 #### Scenario: Mismatched KLInfo key
 - **WHEN** `Info.plist` contains `KLInfo_Intl AltGr` but the `.keylayout` is named "US AltGr Intl No Dead Keys"
 - **THEN** the validation reports the mismatch and fails
+
+### Requirement: Verifies the bundle version
+The validation SHALL check that `CFBundleShortVersionString` and `CFBundleVersion` in `Info.plist` and `version.plist` are all equal and are a valid Semantic Versioning `MAJOR.MINOR.PATCH` version.
+
+#### Scenario: Mismatched versions
+- **WHEN** `Info.plist` says `0.1.0` but `version.plist` says `1.0`
+- **THEN** the validation reports the mismatch and fails

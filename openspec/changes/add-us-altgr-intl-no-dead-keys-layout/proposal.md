@@ -21,6 +21,7 @@ On Linux/Debian, "English (intl., with AltGr dead keys)" (`xkb us(altgr-intl)`) 
   - `scripts/check-layout.py` validates the `.keylayout` against a pinned copy of xkeyboard-config `symbols/us`;
   - `scripts/bootstrap-from-xkb.py` is a one-off script that produces the initial `.keylayout` with clean provenance;
   - `scripts/make-icon.swift` regenerates the fallback icon.
+- Semantic versioning starting at 0.1.0: version in the bundle, signed `vX.Y.Z` tags and a `CHANGELOG.md`.
 - Repository scaffolding:
   - MIT `LICENSE`;
   - English `README.md` with a text layout table;
@@ -34,6 +35,7 @@ On Linux/Debian, "English (intl., with AltGr dead keys)" (`xkb us(altgr-intl)`) 
 - `menu-bar-icon`: how the input source is represented in the menu bar and input menu (badge text, native-matching size, light/dark adaptation).
 - `installation`: installing and uninstalling the bundle per-user or system-wide, user guidance, and supported macOS versions.
 - `layout-validation`: automated verification that the shipped `.keylayout` matches the xkb reference and the no-dead-keys, ASCII and Caps Lock rules.
+- `versioning`: Semantic Versioning for releases, the version recorded in the bundle, signed release tags and a changelog. The first release is 0.1.0.
 
 ### Modified Capabilities
 <!-- None: the project has no existing specs. -->
