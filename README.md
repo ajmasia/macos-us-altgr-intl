@@ -134,7 +134,8 @@ It compares the layout with the pinned xkeyboard-config reference in `vendor/xke
 - ASCII-only Base and Shift layers;
 - Caps Lock behaviour;
 - ASCII-only Command and Control maps;
-- consistent bundle naming.
+- consistent bundle naming;
+- a valid, consistent Semantic Versioning version in `Info.plist` and `version.plist`.
 
 It prints one line per finding (`key / layer / expected / actual`) and exits with status 1 if there are any.
 

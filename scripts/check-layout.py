@@ -19,6 +19,8 @@ import xkb
 
 NAME = "US AltGr Intl No Dead Keys"
 BUNDLE_ID = "com.ajmasia.keyboardlayout.us-altgr-intl-no-dead-keys"
+SEMVER = re.compile(r"(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)")
+VERSION_KEYS = ["CFBundleShortVersionString", "CFBundleVersion"]
 DEFAULT_BUNDLE = os.path.join(xkb.REPO_ROOT, NAME + ".bundle")
 
 MODIFIERS = ["shift", "caps", "option", "command", "control"]
@@ -250,6 +252,25 @@ def check_bundle(bundle, layout, findings):
                         % (", ".join(kl_keys) or "no KLInfo_ key", name))
 
 
+def check_version(bundle, findings):
+    versions = {}
+    for plist in ("Info.plist", "version.plist"):
+        try:
+            with open(os.path.join(bundle, "Contents", plist), "rb") as f:
+                data = plistlib.load(f)
+        except (OSError, plistlib.InvalidFileException) as e:
+            findings.append("version: cannot read %s (%s)" % (plist, e))
+            continue
+        for key in VERSION_KEYS:
+            versions["%s %s" % (plist, key)] = data.get(key)
+    for where, value in versions.items():
+        if not isinstance(value, str) or not SEMVER.fullmatch(value):
+            findings.append("version: %s is %r, expected MAJOR.MINOR.PATCH" % (where, value))
+    if len(set(map(str, versions.values()))) > 1:
+        findings.append("version: values differ: %s" % ", ".join(
+            "%s=%s" % (where, value) for where, value in versions.items()))
+
+
 def validate(bundle):
     findings = []
     name = os.path.basename(os.path.normpath(bundle))[:-len(".bundle")]
@@ -266,6 +287,7 @@ def validate(bundle):
         check_ascii_layers(layout, findings)
         check_shortcut_maps(layout, findings)
     check_bundle(bundle, layout, findings)
+    check_version(bundle, findings)
     return findings
 
 

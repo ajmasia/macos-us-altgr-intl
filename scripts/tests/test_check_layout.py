@@ -45,6 +45,7 @@ class CheckLayoutTest(unittest.TestCase):
             "CFBundleIdentifier": "com.ajmasia.keyboardlayout.us-altgr-intl-no-dead-keys",
             "KLInfo_" + NAME: {"TISIntendedLanguage": "en"},
         })
+        self.write_version_plist("0.1.0")
 
     def tearDown(self):
         shutil.rmtree(self.tmp)
@@ -53,7 +54,13 @@ class CheckLayoutTest(unittest.TestCase):
         with open(self.keylayout, "w", encoding="utf-8") as f:
             f.write(text)
 
+    def write_version_plist(self, version):
+        with open(os.path.join(self.bundle, "Contents", "version.plist"), "wb") as f:
+            plistlib.dump({"CFBundleShortVersionString": version,
+                           "CFBundleVersion": version}, f)
+
     def write_info(self, info):
+        info = dict(info, CFBundleShortVersionString="0.1.0", CFBundleVersion="0.1.0")
         with open(os.path.join(self.bundle, "Contents", "Info.plist"), "wb") as f:
             plistlib.dump(info, f)
 
@@ -125,6 +132,14 @@ class CheckLayoutTest(unittest.TestCase):
         code, out = self.run_check()
         self.assertEqual(code, 1)
         self.assertIn("structure: keyMap 3 in keyMapSet JIS is empty", out)
+
+    def test_version_mismatch(self):
+        self.write_version_plist("1.0")
+        code, out = self.run_check()
+        self.assertEqual(code, 1)
+        self.assertIn("version: version.plist CFBundleShortVersionString is '1.0', "
+                      "expected MAJOR.MINOR.PATCH", out)
+        self.assertIn("version: values differ:", out)
 
     def test_klinfo_mismatch(self):
         self.write_info({
