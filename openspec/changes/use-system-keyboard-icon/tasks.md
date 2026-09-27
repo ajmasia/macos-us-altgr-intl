@@ -12,6 +12,6 @@
 
 ## 3. Release 0.2.0
 
-- [ ] 3.1 Set the bundle version to 0.2.0 in `Info.plist` and `version.plist`, and add a dated `0.2.0` section to `CHANGELOG.md`. Verify: `check-layout.py` exits 0 and the CHANGELOG links compare `v0.1.0...v0.2.0`.
+- [x] 3.1 Set the bundle version to 0.2.0 in `Info.plist` and `version.plist`, and add a dated `0.2.0` section to `CHANGELOG.md`. Verify: `check-layout.py` exits 0 and the CHANGELOG links compare `v0.1.0...v0.2.0`.
 - [ ] 3.2 With the user: install, log out and back in (restart if the indicator does not appear), and switch to the layout in Notes. Verify: the generic keyboard icon appears in the menu bar, the input menu and the cursor indicator, in light and dark mode.
 - [ ] 3.3 Create the signed tag `v0.2.0`. Verify: `git tag -v v0.2.0` reports a good signature.

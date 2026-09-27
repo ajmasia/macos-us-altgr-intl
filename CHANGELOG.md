@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-27
+
+### Changed
+
+- **Breaking (visual):** the layout uses macOS's generic keyboard icon instead of the "US" badge. On macOS 27, the input source indicator next to the text cursor stays empty for any custom icon of a third-party layout; with the generic icon it shows the keyboard.
+- The installer no longer opens System Settings: a new layout only appears there after logging back in.
+- `scripts/check-layout.py` now fails if the bundle ships an `.icns` file.
+
+### Removed
+
+- The "US" badge icon and `scripts/make-icon.swift`.
+
 ## [0.1.0] - 2026-09-27
 
 ### Added
@@ -23,5 +35,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `scripts/check-layout.py`: offline validator against a pinned copy of xkeyboard-config `symbols/us`, with unit tests.
 - `scripts/make-icon.swift` to regenerate the badge, and `scripts/bootstrap-from-xkb.py` as a record of how the layout was generated.
 
-[Unreleased]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/ajmasia/macos-us-altgr-intl/releases/tag/v0.1.0
