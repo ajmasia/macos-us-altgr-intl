@@ -142,6 +142,18 @@ Run the unit tests with:
 python3 -m unittest discover -s scripts/tests
 ```
 
+### Regenerating the menu-bar icon
+
+The `.icns` in the bundle is committed, so installing never needs build tools. To regenerate it, for example after changing `scripts/make-icon.swift`, run:
+
+```sh
+swift scripts/make-icon.swift US "$TMPDIR/us.iconset"
+iconutil -c icns "$TMPDIR/us.iconset" \
+  -o "US AltGr Intl No Dead Keys.bundle/Contents/Resources/US AltGr Intl No Dead Keys.icns"
+```
+
+The badge is a template image: a rounded rectangle with "US" knocked out. macOS cannot draw its own text badge for third-party layouts. This badge copies the shape and letter height of the native badges instead (44:32, measured on macOS 27). Because icon canvases are square, it spans the canvas width and is slightly smaller than the native badges.
+
 ### Provenance of the `.keylayout`
 
 `scripts/bootstrap-from-xkb.py` generated the initial `.keylayout` from `vendor/xkeyboard-config/symbols/us`. It is kept only as a record and is not part of the normal workflow.
