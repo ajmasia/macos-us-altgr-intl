@@ -14,15 +14,15 @@ The layout's icon SHALL be a badge showing the text "US".
 - **THEN** the menu bar shows a badge reading "US"
 
 ### Requirement: Badge matches native badges
-The badge SHALL be rendered with the same size, shape and typography as the system-generated badges of built-in layouts such as "Spanish - ISO", both in the menu bar and in the input menu. If macOS provides no mechanism for a third-party keyboard layout to obtain a system-rendered badge, the badge SHALL instead be a square template image whose height matches the native badges. In that case it will be narrower than the native badges.
+The badge SHALL be rendered with the same size, shape and typography as the system-generated badges of built-in layouts such as "Spanish - ISO", both in the menu bar and in the input menu. If macOS provides no mechanism for a third-party keyboard layout to obtain a system-rendered badge, the badge SHALL instead be a template image with the same width-to-height ratio as the native badges, spanning the full width of the square icon canvas. Because macOS scales icon canvases to the height of native badges, the fallback badge will then be slightly smaller than the native badges, with the same shape.
 
 #### Scenario: Side by side in the input menu
 - **WHEN** the user opens the input menu with both "Spanish - ISO" and "US AltGr Intl No Dead Keys" enabled
-- **THEN** both badges have the same height, and the same width if the system-rendered badge is available
+- **THEN** both badges have the same shape, and the same size if the system-rendered badge is available
 
-#### Scenario: Fallback badge height
+#### Scenario: Fallback badge proportions
 - **WHEN** the system-rendered badge is not available and the fallback badge is shown next to a native badge in the menu bar
-- **THEN** both badges have the same height
+- **THEN** both badges have the same width-to-height ratio, and the fallback badge is as wide as its icon canvas
 
 ### Requirement: Adapts to light and dark appearance
 The badge SHALL adapt to the menu bar and menu appearance like native badges. It SHALL remain legible on light and dark menu bars and in the highlighted state of the input menu.

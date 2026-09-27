@@ -31,7 +31,7 @@
 US AltGr Intl No Dead Keys.bundle/Contents/
   Info.plist              CFBundleIdentifier, KLInfo_US AltGr Intl No Dead Keys {
                             TISInputSourceID, TISIntendedLanguage=en,
-                            TISIconIsTemplate=true, TISIconLabels{Primary="US"} (if spike S1 succeeds) }
+                            TISIconIsTemplate=true }
   version.plist
   Resources/US AltGr Intl No Dead Keys.keylayout
   Resources/US AltGr Intl No Dead Keys.icns
@@ -94,7 +94,14 @@ The first implementation task is a spike on the development Mac. Each variant is
 | S4 | `TISIconIsTemplate` | square badge (current approach) |
 
 - If S1 or S2 yields a native badge, ship S2: the labels key plus the template `.icns` as a safety net.
-- Otherwise ship S4. The badge fills the square canvas vertically so its height matches native badges; this is fallback F1.
+- Otherwise ship S4.
+
+**Outcome (2026-09-27, macOS 27.0):** S1 and S3 show the generic keyboard icon, so `TISIconLabels` is ignored for keylayout bundles. S2 and S4 look identical: the `.icns` is used and the labels key has no effect. **S4 is shipped.**
+
+Icon canvases are square and macOS scales them to the native badge height. A square badge (fallback F1) therefore matched the height of the native "Spanish - ISO" badge but looked narrower: 32×32 px against 44×32 px in a menu screenshot. The user preferred the native shape over the native height, so the badge uses **geometry F2**:
+- the full canvas width;
+- the native aspect ratio of 44:32 (1.375:1), centered vertically;
+- the corner radius and the text scaled to the badge height.
 
 `scripts/make-icon.swift` renders the template iconset (black rounded rect, glyph knocked out, heavy compressed system font) and `iconutil` packs it. The resulting `.icns` is committed. The installer never generates it.
 
@@ -118,7 +125,7 @@ The first implementation task is a spike on the development Mac. Each variant is
 
 ## Risks / Trade-offs
 
-- [`TISIconLabels` may be ignored for keylayout bundles] → The spike runs first. Fallback F1 is already agreed and specified.
+- [`TISIconLabels` may be ignored for keylayout bundles] → The spike runs first. Confirmed by the spike; the template `.icns` with geometry F2 is used.
 - [Command map choice could break a shortcut in some app] → Manual checklist covering Cmd, Cmd+Shift and Cmd+Opt shortcuts in Safari, Terminal and an editor. Adjust map 8 if needed.
 - [Icon and layout caches make results look stale] → The installer touches the bundle and restarts TextInputMenuAgent. The docs say to log out and back in. Use a fresh keylayout `id` if macOS keeps a stale registration.
 - [Keyboard-layout id collision with other installed layouts] → Pick a random negative `id` in the Unicode group (126) and check it against the installed layouts during bootstrap.

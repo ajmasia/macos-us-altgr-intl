@@ -15,7 +15,7 @@ On Linux/Debian, "English (intl., with AltGr dead keys)" (`xkb us(altgr-intl)`) 
   - Command/Control shortcuts identical to Apple's "U.S." layout.
 - Menu-bar badge **"US"**:
   - Preferred: rendered by the system through `TISIconLabels`, to match native badges such as Español.
-  - Fallback: a pre-generated template `.icns` badge with the same height as native badges.
+  - Fallback: a pre-generated template `.icns` badge with the same shape (aspect ratio) as native badges.
 - `scripts/install.sh` (per-user by default, `--system` for `/Library` via sudo) and `scripts/uninstall.sh` (detects where the bundle is installed and only uses sudo when needed). Neither script modifies the enabled input sources; both print next steps and open Keyboard settings.
 - Development tooling, none of it needed by end users:
   - `scripts/check-layout.py` validates the `.keylayout` against a pinned copy of xkeyboard-config `symbols/us`;
