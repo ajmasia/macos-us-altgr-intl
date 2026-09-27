@@ -4,8 +4,6 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Platform: macOS 26+](https://img.shields.io/badge/macOS-26%2B-black?logo=apple)](#requirements)
 [![Based on xkeyboard-config](https://img.shields.io/badge/based%20on-xkeyboard--config-orange)](https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config)
-[![Python 3](https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white)](#development)
-[![Bash](https://img.shields.io/badge/Bash-4EAA25?logo=gnubash&logoColor=white)](scripts/install.sh)
 [![Planned with OpenSpec](https://img.shields.io/badge/planned%20with-OpenSpec-6f42c1)](#planning-with-openspec)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org)
 
