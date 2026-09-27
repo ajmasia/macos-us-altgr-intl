@@ -8,6 +8,19 @@ schema: spec-driven
 #     Tech stack: TypeScript, React, Node.js
 #     We use conventional commits
 #     Domain: e-commerce platform
+context: |
+  Project: "US AltGr Intl No Dead Keys", a macOS keyboard layout bundle that
+  follows xkb us(altgr-intl) with no dead keys. Target: macOS 26+, tested on 27.
+  Tooling: bash for end-user scripts; Python 3 (standard library only) and
+  Swift for development tooling.
+  Conventions:
+  - Commits follow Conventional Commits (feat, fix, docs, chore, refactor,
+    test, ...).
+  - Commits are atomic: one logical change per commit.
+  - No AI attribution anywhere: no Co-Authored-By trailers or "generated
+    with" lines in commits or pull requests.
+  - All project text is in English: commit messages, README, code comments,
+    OpenSpec artifacts and script output.
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.

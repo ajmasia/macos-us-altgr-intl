@@ -2,8 +2,8 @@
 
 ## 1. Repository setup
 
-- [ ] 1.1 Run `git init`. Add `.gitignore` excluding `idea/`, `.claude/` and `.DS_Store`. Verify: `git status` shows neither `idea/` nor `.claude/`.
-- [ ] 1.2 Add `context` to `openspec/config.yaml` with the project conventions: Conventional Commits, atomic commits, no AI attribution, all text in English. Verify: `openspec context --json` succeeds and `openspec instructions proposal --change add-us-altgr-intl-no-dead-keys-layout --json` shows the context.
+- [x] 1.1 Run `git init`. Add `.gitignore` excluding `idea/`, `.claude/` and `.DS_Store`. Verify: `git status` shows neither `idea/` nor `.claude/`.
+- [x] 1.2 Add `context` to `openspec/config.yaml` with the project conventions: Conventional Commits, atomic commits, no AI attribution, all text in English. Verify: `openspec context --json` succeeds and `openspec instructions proposal --change add-us-altgr-intl-no-dead-keys-layout --json` shows the context.
 - [ ] 1.3 Add an MIT `LICENSE` and a skeleton English `README.md` (title, one-paragraph description, placeholder sections). Verify: both files exist and the README renders.
 - [ ] 1.4 Vendor xkeyboard-config into `vendor/xkeyboard-config/`: `symbols/us` from a specific upstream commit, `COPYING`, and a `SOURCE` file with the URL and commit hash. Verify: the `altgr-intl` and `intl` blocks exist in the vendored file and `SOURCE` names the commit.
 - [ ] 1.5 Make the first commits (one per task above, Conventional Commits, no AI attribution). Verify: `git log` shows atomic `chore:`/`docs:` commits.
