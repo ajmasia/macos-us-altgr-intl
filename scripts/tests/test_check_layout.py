@@ -115,6 +115,17 @@ class CheckLayoutTest(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("shortcut map not ASCII: key code 0 / Command / á (U+00E1)", out)
 
+    def test_empty_keymap(self):
+        self.keylayout_text = self.keylayout_text.replace(
+            '<keyMap index="3" baseMapSet="ANSI" baseIndex="3">\n'
+            '            <key code="95" output=","/>\n'
+            '        </keyMap>',
+            '<keyMap index="3" baseMapSet="ANSI" baseIndex="3"/>')
+        self.write_keylayout(self.keylayout_text)
+        code, out = self.run_check()
+        self.assertEqual(code, 1)
+        self.assertIn("structure: keyMap 3 in keyMapSet JIS is empty", out)
+
     def test_klinfo_mismatch(self):
         self.write_info({
             "CFBundleIdentifier": "com.ajmasia.keyboardlayout.us-altgr-intl-no-dead-keys",

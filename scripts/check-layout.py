@@ -169,6 +169,15 @@ def check_mapping(layout, findings):
                     describe(("out", expected)), describe(actual)))
 
 
+def check_structure(layout, findings):
+    # macOS silently drops the whole layout if any keyMap has no keys.
+    for ms in layout.root.findall("keyMapSet"):
+        for km in ms.findall("keyMap"):
+            if not km.findall("key"):
+                findings.append("structure: keyMap %s in keyMapSet %s is empty"
+                                % (km.get("index"), ms.get("id")))
+
+
 def check_dead_keys(layout, findings):
     if layout.root.find("terminators") is not None:
         findings.append("dead keys: <terminators> element present")
@@ -251,6 +260,7 @@ def validate(bundle):
     except (OSError, ET.ParseError) as e:
         findings.append("keylayout: cannot load %s (%s)" % (path, e))
     if layout is not None:
+        check_structure(layout, findings)
         check_mapping(layout, findings)
         check_dead_keys(layout, findings)
         check_ascii_layers(layout, findings)
