@@ -6,23 +6,23 @@
 - [x] 1.2 Add `context` to `openspec/config.yaml` with the project conventions: Conventional Commits, atomic commits, no AI attribution, all text in English. Verify: `openspec context --json` succeeds and `openspec instructions proposal --change add-us-altgr-intl-no-dead-keys-layout --json` shows the context.
 - [x] 1.3 Add an MIT `LICENSE` and a skeleton English `README.md` (title, one-paragraph description, placeholder sections). Verify: both files exist and the README renders.
 - [x] 1.4 Vendor xkeyboard-config into `vendor/xkeyboard-config/`: `symbols/us` from a specific upstream commit, `COPYING`, and a `SOURCE` file with the URL and commit hash. Verify: the `altgr-intl` and `intl` blocks exist in the vendored file and `SOURCE` names the commit.
-- [ ] 1.5 Make the first commits (one per task above, Conventional Commits, no AI attribution). Verify: `git log` shows atomic `chore:`/`docs:` commits.
+- [x] 1.5 Make the first commits (one per task above, Conventional Commits, no AI attribution). Verify: `git log` shows atomic `chore:`/`docs:` commits.
 
 ## 2. Icon spike (menu-bar-icon)
 
-- [ ] 2.1 Build throwaway bundles for variants S1–S4 from design D7 outside the repo (`$TMPDIR`), each with a distinct bundle id and name. Verify: four bundles exist with the intended Info.plist keys (`plutil -p`).
+- [x] 2.1 Build throwaway bundles for variants S1–S4 from design D7 outside the repo (`$TMPDIR`), each with a distinct bundle id and name. Verify: four bundles exist with the intended Info.plist keys (`plutil -p`).
 - [ ] 2.2 With the user: remove the prototype and other test layouts (design, Migration Plan step 1), install the variants, log out and back in, enable them, and compare against "Spanish - ISO" in the menu bar and input menu, in light and dark mode. Verify: screenshots and a written verdict on whether `TISIconLabels` produces a native badge.
 - [ ] 2.3 Record the outcome (S2 or S4) in design.md D7 and remove the spike bundles from `~/Library/Keyboard Layouts/`. Verify: design.md states the chosen variant and no spike bundle remains installed.
 
 ## 3. xkb parsing and layout bootstrap (keyboard-layout)
 
-- [ ] 3.1 Implement `scripts/xkb.py`:
+- [x] 3.1 Implement `scripts/xkb.py`:
   - parse the vendored `symbols/us` and resolve `altgr-intl` with its `include "us(intl)"`;
   - map xkb key names to macOS key codes, including `LSGT`→10 and `TLDE`→50;
   - classify keys as alphabetic or semi-alphabetic following the xkb type rules.
 
   Verify: `python3 -m unittest scripts/tests/test_xkb.py` passes, covering AC11, AE06, AB05, LSGT and the classification of `a`, `c` and `f`.
-- [ ] 3.2 Add the dead-key replacement table (the 17 entries from the keyboard-layout spec) to `scripts/xkb.py` as data. Verify: a unit test asserts that no dead keysym remains in the four resolved layers and spot-checks `´`, `ˇ` and U+0338.
+- [x] 3.2 Add the dead-key replacement table (the 17 entries from the keyboard-layout spec) to `scripts/xkb.py` as data. Verify: a unit test asserts that no dead keysym remains in the four resolved layers and spot-checks `´`, `ˇ` and U+0338.
 - [ ] 3.3 Implement `scripts/bootstrap-from-xkb.py` to write the `.keylayout`:
   - modifier maps as in design D2, with `defaultIndex` pointing to map 0;
   - ANSI and JIS key map sets as in D3;
