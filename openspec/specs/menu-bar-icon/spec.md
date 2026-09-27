@@ -1,7 +1,7 @@
 # menu-bar-icon Specification
 
 ## Purpose
-Defines how the layout is represented in the macOS menu bar and input menu, so that it is recognizable and visually consistent with the system's native input source badges.
+Defines how the layout is represented in the macOS menu bar, the input menu and the input source indicator next to the text cursor, so that a switch to it is always visible.
 
 ## Requirements
 
