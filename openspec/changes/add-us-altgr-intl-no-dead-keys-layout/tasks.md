@@ -34,13 +34,13 @@
 
 ## 4. Layout validator (layout-validation)
 
-- [ ] 4.1 Implement `scripts/check-layout.py`:
+- [x] 4.1 Implement `scripts/check-layout.py`:
   - load the `.keylayout`, including XML-illegal control entities;
   - resolve each key through the modifier-map selection for every {shift, caps, option} combination;
   - compare the result with `scripts/xkb.py` plus the documented exceptions, reporting `key / layer / expected / actual` and exiting 1 on any finding.
 
   Verify: running it on the generated layout exits 0.
-- [ ] 4.2 Add checks for dead-key states in any map (Caps included), non-ASCII characters in the Base/Shift layers, Caps Lock behaviour, ASCII-only Command/Control maps, and bundle naming consistency (design D1). Verify: `python3 -m unittest scripts/tests/test_check_layout.py` passes using mutated fixture copies (™→®, dead `'` under Caps, Shift+6=U+02C6, `KLInfo_` mismatch), and each mutation is reported with the expected message.
+- [x] 4.2 Add checks for dead-key states in any map (Caps included), non-ASCII characters in the Base/Shift layers, Caps Lock behaviour, ASCII-only Command/Control maps, and bundle naming consistency (design D1). Verify: `python3 -m unittest scripts/tests/test_check_layout.py` passes using mutated fixture copies (™→®, dead `'` under Caps, Shift+6=U+02C6, `KLInfo_` mismatch), and each mutation is reported with the expected message.
 - [ ] 4.3 Document validation in the README "Development" section: how to run the checks and the unit tests, and that Python 3 comes with the Xcode CLT. Verify: the documented commands run as written.
 
 ## 5. Bundle metadata and icon (keyboard-layout, menu-bar-icon)
