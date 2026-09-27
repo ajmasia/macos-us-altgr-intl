@@ -77,5 +77,5 @@
 
 - [x] 8.1 Install the layout, log out and back in, and enable it. Walk through the keyboard-layout spec scenarios manually in TextEdit and Terminal: direct accents, literal quotes, no composition after Option+`'`, Caps Lock cases, ISO key via a programmable keyboard, Option+Space. Verify: every scenario produces the specified output; any failure is fixed in the `.keylayout` and `check-layout.py` still passes.
 - [ ] 8.2 Check shortcuts in Safari, Terminal and an editor: Cmd+C/V/Z, Cmd+Shift+Z, Cmd+/, Cmd+Opt+I, Ctrl+C. Verify: they behave as with Apple's "U.S." layout.
-- [ ] 8.3 Check the badge next to "Spanish - ISO" in the menu bar and input menu, in light and dark mode. Verify: the menu-bar-icon spec scenarios hold for the chosen variant.
+- [x] 8.3 Check the badge next to "Spanish - ISO" in the menu bar and input menu, in light and dark mode. Verify: the menu-bar-icon spec scenarios hold for the chosen variant.
 - [ ] 8.4 Run `openspec validate add-us-altgr-intl-no-dead-keys-layout --strict` and confirm that `git log` is atomic, uses Conventional Commits, and has no AI attribution. Verify: validation passes and the log meets the conventions.
