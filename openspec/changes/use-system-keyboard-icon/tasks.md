@@ -2,7 +2,7 @@
 
 ## 1. Bundle and validator
 
-- [ ] 1.1 Update `scripts/check-layout.py`: no longer require an `.icns`, and report any `.icns` in `Contents/Resources`. Update the tests: the fixture ships no `.icns`, and a new test adds one and expects the finding. Verify: `python3 -m unittest discover -s scripts/tests` passes.
+- [x] 1.1 Update `scripts/check-layout.py`: no longer require an `.icns`, and report any `.icns` in `Contents/Resources`. Update the tests: the fixture ships no `.icns`, and a new test adds one and expects the finding. Verify: `python3 -m unittest discover -s scripts/tests` passes.
 - [ ] 1.2 Delete `Resources/US AltGr Intl No Dead Keys.icns` and the `TISIconIsTemplate` key from `Info.plist`. Verify: `plutil -lint` passes and `python3 scripts/check-layout.py` exits 0.
 
 ## 2. Tooling and docs

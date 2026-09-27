@@ -230,9 +230,14 @@ def check_bundle(bundle, layout, findings):
     if name != NAME:
         findings.append("bundle: directory name %r, expected %r" % (name, NAME))
     resources = os.path.join(bundle, "Contents", "Resources")
-    for ext in ("keylayout", "icns"):
-        if not os.path.isfile(os.path.join(resources, "%s.%s" % (name, ext))):
-            findings.append("bundle: missing Resources/%s.%s" % (name, ext))
+    if not os.path.isfile(os.path.join(resources, name + ".keylayout")):
+        findings.append("bundle: missing Resources/%s.keylayout" % name)
+    # A custom icon leaves the text-cursor input indicator empty; the layout
+    # relies on the generic system keyboard icon instead.
+    if os.path.isdir(resources):
+        for entry in sorted(os.listdir(resources)):
+            if entry.lower().endswith(".icns"):
+                findings.append("bundle: custom icon Resources/%s must not be shipped" % entry)
     if layout is not None and layout.name != name:
         findings.append("bundle: keylayout name attribute %r does not match bundle %r"
                         % (layout.name, name))

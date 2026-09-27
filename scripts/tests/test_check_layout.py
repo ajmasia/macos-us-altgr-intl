@@ -28,7 +28,7 @@ DEAD_ACTIONS = """    <actions>
 
 class CheckLayoutTest(unittest.TestCase):
     """Runs check-layout.py on a fixture bundle built from the shipped
-    .keylayout, with a valid Info.plist and a placeholder .icns."""
+    .keylayout, with a valid Info.plist and version.plist."""
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
@@ -39,8 +39,6 @@ class CheckLayoutTest(unittest.TestCase):
             self.keylayout_text = f.read()
         self.keylayout = os.path.join(resources, NAME + ".keylayout")
         self.write_keylayout(self.keylayout_text)
-        with open(os.path.join(resources, NAME + ".icns"), "wb") as f:
-            f.write(b"icns\x00\x00\x00\x08")
         self.write_info({
             "CFBundleIdentifier": "com.ajmasia.keyboardlayout.us-altgr-intl-no-dead-keys",
             "KLInfo_" + NAME: {"TISIntendedLanguage": "en"},
@@ -140,6 +138,14 @@ class CheckLayoutTest(unittest.TestCase):
         self.assertIn("version: version.plist CFBundleShortVersionString is '1.0', "
                       "expected MAJOR.MINOR.PATCH", out)
         self.assertIn("version: values differ:", out)
+
+    def test_custom_icon_rejected(self):
+        resources = os.path.join(self.bundle, "Contents", "Resources")
+        with open(os.path.join(resources, NAME + ".icns"), "wb") as f:
+            f.write(b"icns\x00\x00\x00\x08")
+        code, out = self.run_check()
+        self.assertEqual(code, 1)
+        self.assertIn("bundle: custom icon Resources/%s.icns must not be shipped" % NAME, out)
 
     def test_klinfo_mismatch(self):
         self.write_info({
