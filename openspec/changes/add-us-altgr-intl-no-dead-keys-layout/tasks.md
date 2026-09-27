@@ -12,7 +12,7 @@
 
 - [x] 2.1 Build throwaway bundles for variants S1–S4 from design D7 outside the repo (`$TMPDIR`), each with a distinct bundle id and name. Verify: four bundles exist with the intended Info.plist keys (`plutil -p`).
 - [x] 2.2 With the user: remove the prototype and other test layouts (design, Migration Plan step 1), install the variants, log out and back in, enable them, and compare against "Spanish - ISO" in the menu bar and input menu, in light and dark mode. Verify: screenshots and a written verdict on whether `TISIconLabels` produces a native badge.
-- [ ] 2.3 Record the outcome (S2 or S4) in design.md D7 and remove the spike bundles from `~/Library/Keyboard Layouts/`. Verify: design.md states the chosen variant and no spike bundle remains installed.
+- [x] 2.3 Record the outcome (S2 or S4) in design.md D7 and remove the spike bundles from `~/Library/Keyboard Layouts/`. Verify: design.md states the chosen variant and no spike bundle remains installed.
 
 ## 3. xkb parsing and layout bootstrap (keyboard-layout)
 
@@ -51,7 +51,7 @@
 
   Also write `version.plist` and `en.lproj/InfoPlist.strings`. Verify: `plutil -lint` passes on all three and `check-layout.py` bundle-consistency passes.
 - [x] 5.2 Implement `scripts/make-icon.swift`: a template badge with "US" knocked out of a black rounded rect with the native 44:32 aspect ratio spanning the canvas width (F2 geometry, design D7), bold system font with capitals at 17/32 of the badge height as on native badges. Verify: `swift scripts/make-icon.swift US "$TMPDIR/us.iconset"` writes all 10 iconset PNGs.
-- [ ] 5.3 Generate and commit `US AltGr Intl No Dead Keys.icns` with `iconutil`. Verify: `iconutil -c iconset` round-trips it, and the 32 px image shows a full-width badge with the native aspect ratio and transparent "US".
+- [x] 5.3 Generate and commit `US AltGr Intl No Dead Keys.icns` with `iconutil`. Verify: `iconutil -c iconset` round-trips it, and the 32 px image shows a full-width badge with the native aspect ratio and transparent "US".
 - [ ] 5.4 Document icon regeneration in the README "Development" section. Verify: the documented commands reproduce a byte-identical or visually identical `.icns`.
 
 ## 6. Install and uninstall scripts (installation)
