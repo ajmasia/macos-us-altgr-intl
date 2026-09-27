@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-09-27
+
+### Changed
+
+- README: table of contents, upgrading instructions, troubleshooting (layout not listed, stale icons, Option in Terminal and iTerm2, Caps Lock switching input sources), ANSI/ISO/JIS compatibility, a repository map, and full documentation of the development scripts, how to change a key, how to regenerate from xkb and how to publish a release.
+
 ## [0.2.1] - 2026-09-27
 
 ### Changed
@@ -42,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `scripts/check-layout.py`: offline validator against a pinned copy of xkeyboard-config `symbols/us`, with unit tests.
 - `scripts/make-icon.swift` to regenerate the badge, and `scripts/bootstrap-from-xkb.py` as a record of how the layout was generated.
 
-[Unreleased]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/ajmasia/macos-us-altgr-intl/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/ajmasia/macos-us-altgr-intl/releases/tag/v0.1.0
