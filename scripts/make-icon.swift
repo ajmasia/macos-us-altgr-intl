@@ -2,9 +2,10 @@
 //
 // Usage: swift scripts/make-icon.swift TEXT OUTPUT.iconset
 //
-// The badge is a black rounded rectangle that fills the whole canvas height,
-// so it is as tall as the system-drawn badges, with TEXT knocked out
-// (transparent). macOS tints template images for light and dark menu bars.
+// The badge is a black rounded rectangle with the aspect ratio of the
+// system-drawn input source badges, spanning the full width of the square
+// canvas, with TEXT knocked out (transparent). macOS tints template images
+// for light and dark menu bars.
 // Pack the result with: iconutil -c icns OUTPUT.iconset -o OUTPUT.icns
 
 import AppKit
@@ -17,6 +18,12 @@ guard args.count == 3 else {
 let text = args[1]
 let outputDir = args[2]
 
+// Measured on a native badge in the macOS 27 menu: 44x32 px, with a
+// capital letter 17 px tall.
+let badgeAspect: CGFloat = 44.0 / 32.0
+let capHeightRatio: CGFloat = 17.0 / 32.0
+let cornerRatio: CGFloat = 0.2
+
 let entries: [(pixels: Int, file: String)] = [
     (16, "icon_16x16.png"), (32, "icon_16x16@2x.png"),
     (32, "icon_32x32.png"), (64, "icon_32x32@2x.png"),
@@ -25,13 +32,9 @@ let entries: [(pixels: Int, file: String)] = [
     (512, "icon_512x512.png"), (1024, "icon_512x512@2x.png"),
 ]
 
-func attributedText(_ size: CGFloat) -> NSAttributedString {
-    let font = NSFont.systemFont(ofSize: size, weight: .heavy, width: .compressed)
-    return NSAttributedString(string: text, attributes: [
-        .font: font,
-        .foregroundColor: NSColor.black,
-        .kern: -size * 0.02,
-    ])
+func font(capHeight: CGFloat) -> NSFont {
+    let reference = NSFont.systemFont(ofSize: 100, weight: .bold)
+    return NSFont.systemFont(ofSize: 100 * capHeight / reference.capHeight, weight: .bold)
 }
 
 func render(_ pixels: Int) -> Data? {
@@ -47,20 +50,22 @@ func render(_ pixels: Int) -> Data? {
     NSGraphicsContext.current = context
 
     let side = CGFloat(pixels)
-    let badge = NSRect(x: 0, y: 0, width: side, height: side)
+    let height = side / badgeAspect
+    let badge = NSRect(x: 0, y: (side - height) / 2, width: side, height: height)
     NSColor.black.setFill()
-    NSBezierPath(roundedRect: badge, xRadius: side * 0.2, yRadius: side * 0.2).fill()
+    NSBezierPath(roundedRect: badge, xRadius: height * cornerRatio,
+                 yRadius: height * cornerRatio).fill()
 
-    // Largest font size whose text fits the badge with a small margin.
-    var fontSize = side
-    var label = attributedText(fontSize)
-    let fit = min(side * 0.94 / label.size().width, side * 0.84 / label.size().height, 1)
-    fontSize *= fit
-    label = attributedText(fontSize)
-
+    // Capital letters as tall, relative to the badge, as on native badges,
+    // centered on their cap height.
+    let labelFont = font(capHeight: height * capHeightRatio)
+    let label = NSAttributedString(string: text, attributes: [
+        .font: labelFont, .foregroundColor: NSColor.black,
+    ])
+    let baseline = badge.midY - labelFont.capHeight / 2
     context.compositingOperation = .destinationOut
-    let size = label.size()
-    label.draw(at: NSPoint(x: (side - size.width) / 2, y: (side - size.height) / 2))
+    label.draw(at: NSPoint(x: badge.midX - label.size().width / 2,
+                           y: baseline + labelFont.descender))
     return rep.representation(using: .png, properties: [:])
 }
 

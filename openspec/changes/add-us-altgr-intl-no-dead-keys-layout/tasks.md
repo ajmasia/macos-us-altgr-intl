@@ -50,7 +50,7 @@
   - `KLInfo_US AltGr Intl No Dead Keys` containing `TISInputSourceID`, `TISIntendedLanguage=en`, `TISIconIsTemplate=true`, plus `TISIconLabels {Primary: "US"}` if the spike chose S2.
 
   Also write `version.plist` and `en.lproj/InfoPlist.strings`. Verify: `plutil -lint` passes on all three and `check-layout.py` bundle-consistency passes.
-- [ ] 5.2 Implement `scripts/make-icon.swift`: a template badge with "US" knocked out of a black rounded rect with the native 44:32 aspect ratio spanning the canvas width (F2 geometry, design D7), heavy compressed system font. Verify: `swift scripts/make-icon.swift US "$TMPDIR/us.iconset"` writes all 10 iconset PNGs.
+- [x] 5.2 Implement `scripts/make-icon.swift`: a template badge with "US" knocked out of a black rounded rect with the native 44:32 aspect ratio spanning the canvas width (F2 geometry, design D7), bold system font with capitals at 17/32 of the badge height as on native badges. Verify: `swift scripts/make-icon.swift US "$TMPDIR/us.iconset"` writes all 10 iconset PNGs.
 - [ ] 5.3 Generate and commit `US AltGr Intl No Dead Keys.icns` with `iconutil`. Verify: `iconutil -c iconset` round-trips it, and the 32 px image shows a full-width badge with the native aspect ratio and transparent "US".
 - [ ] 5.4 Document icon regeneration in the README "Development" section. Verify: the documented commands reproduce a byte-identical or visually identical `.icns`.
 
