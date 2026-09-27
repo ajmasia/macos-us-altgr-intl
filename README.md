@@ -2,13 +2,34 @@
 
 A macOS keyboard layout that behaves like Debian's "English (intl., with AltGr dead keys)" (`xkb us(altgr-intl)`), but with no dead keys at all. The base and Shift layers are plain US ASCII, so `'`, `"`, `` ` ``, `~` and `^` are typed immediately, which suits programming. Accented letters and symbols sit on Option (acting as AltGr), and each of them is typed with a single keystroke.
 
+## Requirements
+
+macOS 26 Tahoe or later. Tested on macOS 27. Installing needs only the tools that ship with macOS.
+
 ## Installation
 
-_To be written._
+From a clone of this repository, run:
+
+```sh
+./scripts/install.sh
+```
+
+This installs the layout for your user in `~/Library/Keyboard Layouts/`. To install it for all users in `/Library/Keyboard Layouts/` instead, run `./scripts/install.sh --system`. You will be asked for your password.
+
+Then:
+
+1. Log out and log back in. macOS only registers new keyboard layouts at login.
+2. Open System Settings > Keyboard > Input Sources > Edit, click "+", choose English and add **US AltGr Intl No Dead Keys**.
+
+The installer opens the Keyboard settings pane for you. It never enables, disables or reorders input sources itself.
 
 ## Uninstallation
 
-_To be written._
+```sh
+./scripts/uninstall.sh
+```
+
+The script removes the layout from `~/Library/Keyboard Layouts/` and `/Library/Keyboard Layouts/`, whichever contain it. It asks for your password only when a system-wide copy exists. Afterwards, remove the input source in System Settings > Keyboard > Input Sources if it is still listed, then log out and log back in.
 
 ## Layout
 
