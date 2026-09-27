@@ -171,6 +171,10 @@ These projects port `altgr-intl` or US-International to macOS. They were consult
 - [philippwallrafen/macos-us-intl-no-dead-keys-iso](https://github.com/philippwallrafen/macos-us-intl-no-dead-keys-iso)
 - [xv0x7c0/osx-us-altgr-intl](https://github.com/xv0x7c0/osx-us-altgr-intl)
 
+## Versioning
+
+Releases follow [Semantic Versioning](https://semver.org/). Each one is tagged `vMAJOR.MINOR.PATCH`, and the same version is recorded in the bundle's `Info.plist`. See [CHANGELOG.md](CHANGELOG.md) for what changed in each release.
+
 ## License
 
 [MIT](LICENSE).
