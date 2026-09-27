@@ -64,9 +64,9 @@
   - cache refresh, English next-steps message, and opening the Keyboard settings pane.
 
   Verify: run from another directory, the bundle lands in `~/Library/Keyboard Layouts/`; a second run leaves exactly one bundle; `--bogus` exits non-zero without changes; `shellcheck scripts/install.sh` is clean.
-- [ ] 6.2 Verify `scripts/install.sh --system` with the user: the sudo prompt appears and the bundle lands in `/Library/Keyboard Layouts/`.
-- [ ] 6.3 Implement `scripts/uninstall.sh`: remove the copies found in `~/Library` and `/Library` (sudo only for `/Library`), report "nothing to remove" when neither exists, and print English next steps. Verify: the per-user, system and nothing-installed cases behave as in the installation spec, and `shellcheck scripts/uninstall.sh` is clean.
-- [ ] 6.4 Document installation and uninstallation in the README (including `--system`, logging out and back in, adding the input source, and supported macOS 26+ / tested on 27). Verify: following the README steps on the development Mac installs and removes the layout.
+- [x] 6.2 Verify `scripts/install.sh --system` with the user: the sudo prompt appears and the bundle lands in `/Library/Keyboard Layouts/`.
+- [x] 6.3 Implement `scripts/uninstall.sh`: remove the copies found in `~/Library` and `/Library` (sudo only for `/Library`), report "nothing to remove" when neither exists, and print English next steps. Verify: the per-user, system and nothing-installed cases behave as in the installation spec, and `shellcheck scripts/uninstall.sh` is clean.
+- [x] 6.4 Document installation and uninstallation in the README (including `--system`, logging out and back in, adding the input source, and supported macOS 26+ / tested on 27). Verify: following the README steps on the development Mac installs and removes the layout.
 
 ## 7. README layout reference (keyboard-layout)
 
@@ -76,6 +76,6 @@
 ## 8. End-to-end verification on the development Mac
 
 - [x] 8.1 Install the layout, log out and back in, and enable it. Walk through the keyboard-layout spec scenarios manually in TextEdit and Terminal: direct accents, literal quotes, no composition after Option+`'`, Caps Lock cases, ISO key via a programmable keyboard, Option+Space. Verify: every scenario produces the specified output; any failure is fixed in the `.keylayout` and `check-layout.py` still passes.
-- [ ] 8.2 Check shortcuts in Safari, Terminal and an editor: Cmd+C/V/Z, Cmd+Shift+Z, Cmd+/, Cmd+Opt+I, Ctrl+C. Verify: they behave as with Apple's "U.S." layout.
+- [x] 8.2 Check shortcuts in Safari, Terminal and an editor: Cmd+C/V/Z, Cmd+Shift+Z, Cmd+/, Cmd+Opt+I, Ctrl+C. Verify: they behave as with Apple's "U.S." layout.
 - [x] 8.3 Check the badge next to "Spanish - ISO" in the menu bar and input menu, in light and dark mode. Verify: the menu-bar-icon spec scenarios hold for the chosen variant.
-- [ ] 8.4 Run `openspec validate add-us-altgr-intl-no-dead-keys-layout --strict` and confirm that `git log` is atomic, uses Conventional Commits, and has no AI attribution. Verify: validation passes and the log meets the conventions.
+- [x] 8.4 Run `openspec validate add-us-altgr-intl-no-dead-keys-layout --strict` and confirm that `git log` is atomic, uses Conventional Commits, and has no AI attribution. Verify: validation passes and the log meets the conventions.
