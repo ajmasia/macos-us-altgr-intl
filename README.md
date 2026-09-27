@@ -118,6 +118,10 @@ Caps Lock works as on Linux: it changes the case of letters only, and Shift reve
 
 Command and Control shortcuts behave as with Apple's "U.S." layout. Command+Option shortcuts such as Command+Option+I match their base letter.
 
+### Menu bar icon
+
+The layout uses macOS's generic keyboard icon, in the menu bar, in the input menu and in the indicator that appears next to the text cursor when you switch input sources. It has no "US" badge of its own. On macOS 27, that indicator stays empty for every custom icon of a third-party keyboard layout, and macOS offers no way for such layouts to show a text label like the built-in ones ("A", "US"). The generic icon is the only one that appears everywhere.
+
 ### Differences from other layouts
 
 - **Debian `altgr-intl`:** the same characters in the same positions, but none of the 17 dead keys (marked †). Where Debian waits for the next key, this layout types the accent immediately.
