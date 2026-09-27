@@ -45,11 +45,15 @@ The validation SHALL verify the Caps Lock requirement of the `keyboard-layout` c
 - **THEN** the validation reports it and fails
 
 ### Requirement: Verifies bundle consistency
-The validation SHALL check that the following are consistent: the bundle directory name, the `.keylayout` and `.icns` file names, the `name` attribute of the `.keylayout`, the `KLInfo_<name>` key in `Info.plist`, and the bundle identifier.
+The validation SHALL check that the following are consistent: the bundle directory name, the `.keylayout` file name, the `name` attribute of the `.keylayout`, the `KLInfo_<name>` key in `Info.plist`, and the bundle identifier. It SHALL also fail if the bundle contains an `.icns` file, because a custom icon leaves the text-cursor input indicator empty.
 
 #### Scenario: Mismatched KLInfo key
 - **WHEN** `Info.plist` contains `KLInfo_Intl AltGr` but the `.keylayout` is named "US AltGr Intl No Dead Keys"
 - **THEN** the validation reports the mismatch and fails
+
+#### Scenario: Custom icon present
+- **WHEN** the bundle's `Resources` directory contains an `.icns` file
+- **THEN** the validation reports it and fails
 
 ### Requirement: Verifies the bundle version
 The validation SHALL check that `CFBundleShortVersionString` and `CFBundleVersion` in `Info.plist` and `version.plist` are all equal and are a valid Semantic Versioning `MAJOR.MINOR.PATCH` version.
