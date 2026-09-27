@@ -23,14 +23,14 @@
 
   Verify: `python3 -m unittest scripts/tests/test_xkb.py` passes, covering AC11, AE06, AB05, LSGT and the classification of `a`, `c` and `f`.
 - [x] 3.2 Add the dead-key replacement table (the 17 entries from the keyboard-layout spec) to `scripts/xkb.py` as data. Verify: a unit test asserts that no dead keysym remains in the four resolved layers and spot-checks `´`, `ˇ` and U+0338.
-- [ ] 3.3 Implement `scripts/bootstrap-from-xkb.py` to write the `.keylayout`:
+- [x] 3.3 Implement `scripts/bootstrap-from-xkb.py` to write the `.keylayout`:
   - modifier maps as in design D2, with `defaultIndex` pointing to map 0;
   - ANSI and JIS key map sets as in D3;
   - non-character keys as in D4, with Space = U+0020 in every map;
   - a random negative id in group 126 that does not collide with the installed layouts.
 
   Verify: the output is well-formed XML (`plutil -lint` is not applicable; use `python3 -c "import xml.dom.minidom"` after entity mapping) and contains no `<terminators>` and no `next=` attribute.
-- [ ] 3.4 Generate `US AltGr Intl No Dead Keys.bundle/Contents/Resources/US AltGr Intl No Dead Keys.keylayout` and commit it together with the bootstrap script. Verify: the file exists and its `name` attribute is "US AltGr Intl No Dead Keys".
+- [x] 3.4 Generate `US AltGr Intl No Dead Keys.bundle/Contents/Resources/US AltGr Intl No Dead Keys.keylayout` and commit it together with the bootstrap script. Verify: the file exists and its `name` attribute is "US AltGr Intl No Dead Keys".
 
 ## 4. Layout validator (layout-validation)
 
