@@ -56,7 +56,7 @@
 
 ## 6. Install and uninstall scripts (installation)
 
-- [ ] 6.1 Implement `scripts/install.sh` following design D8:
+- [x] 6.1 Implement `scripts/install.sh` following design D8:
   - Darwin check and macOS < 26 warning;
   - repo root resolved from the script path;
   - `--system` option, usage and non-zero exit on unknown options;
