@@ -148,7 +148,13 @@ python3 -m unittest discover -s scripts/tests
 
 ## Provenance and prior art
 
-_To be written._
+Every character mapping comes from [xkeyboard-config](https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config)'s `symbols/us` (MIT/X11-style licenses). A pinned copy is in `vendor/xkeyboard-config/`, together with its license and the upstream commit it was taken from. `scripts/bootstrap-from-xkb.py` generated the initial `.keylayout` from that copy. No code or layout data from other projects is used.
+
+These projects port `altgr-intl` or US-International to macOS. They were consulted as references only:
+
+- [carjorvaz/macos-us-altgr-intl](https://github.com/carjorvaz/macos-us-altgr-intl)
+- [philippwallrafen/macos-us-intl-no-dead-keys-iso](https://github.com/philippwallrafen/macos-us-intl-no-dead-keys-iso)
+- [xv0x7c0/osx-us-altgr-intl](https://github.com/xv0x7c0/osx-us-altgr-intl)
 
 ## License
 
