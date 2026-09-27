@@ -5,7 +5,6 @@
 [![Platform: macOS 26+](https://img.shields.io/badge/macOS-26%2B-black?logo=apple)](#requirements)
 [![Based on xkeyboard-config](https://img.shields.io/badge/based%20on-xkeyboard--config-orange)](https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config)
 [![Python 3](https://img.shields.io/badge/Python-3-3776AB?logo=python&logoColor=white)](#development)
-[![Swift](https://img.shields.io/badge/Swift-F05138?logo=swift&logoColor=white)](#regenerating-the-menu-bar-icon)
 [![Bash](https://img.shields.io/badge/Bash-4EAA25?logo=gnubash&logoColor=white)](scripts/install.sh)
 [![Planned with OpenSpec](https://img.shields.io/badge/planned%20with-OpenSpec-6f42c1)](#planning-with-openspec)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org)
@@ -154,18 +153,6 @@ Run the unit tests with:
 ```sh
 python3 -m unittest discover -s scripts/tests
 ```
-
-### Regenerating the menu-bar icon
-
-The `.icns` in the bundle is committed, so installing never needs build tools. To regenerate it, for example after changing `scripts/make-icon.swift`, run:
-
-```sh
-swift scripts/make-icon.swift US "$TMPDIR/us.iconset"
-iconutil -c icns "$TMPDIR/us.iconset" \
-  -o "US AltGr Intl No Dead Keys.bundle/Contents/Resources/US AltGr Intl No Dead Keys.icns"
-```
-
-The badge is a template image: a rounded rectangle with "US" knocked out. macOS cannot draw its own text badge for third-party layouts. This badge copies the shape and letter height of the native badges instead (44:32, measured on macOS 27). Because icon canvases are square, it spans the canvas width and is slightly smaller than the native badges.
 
 ### Provenance of the `.keylayout`
 

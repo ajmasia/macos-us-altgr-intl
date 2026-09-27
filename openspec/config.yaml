@@ -11,8 +11,9 @@ schema: spec-driven
 context: |
   Project: "US AltGr Intl No Dead Keys", a macOS keyboard layout bundle that
   follows xkb us(altgr-intl) with no dead keys. Target: macOS 26+, tested on 27.
-  Tooling: bash for end-user scripts; Python 3 (standard library only) and
-  Swift for development tooling.
+  Tooling: bash for end-user scripts; Python 3 (standard library only) for
+  development tooling. The bundle ships no custom icon (the text-cursor input
+  indicator stays empty for custom icons), so macOS shows its generic one.
   Conventions:
   - Commits follow Conventional Commits (feat, fix, docs, chore, refactor,
     test, ...).
